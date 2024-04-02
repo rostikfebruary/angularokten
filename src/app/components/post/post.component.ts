@@ -1,19 +1,28 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {IPost} from "../../interfaces/post.interface";
 import {ActivatedRoute, Router} from "@angular/router";
 import {IComent} from "../../interfaces/comment.interface";
+import {CommentServiceService} from "../../services/comment-service.service";
+import {NgFor, NgIf} from "@angular/common";
+import {ComentComponent} from "../coment/coment.component";
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [],
+  imports: [
+    NgIf,
+    NgFor,
+    ComentComponent
+  ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css'
 })
 export class PostComponent {
   @Input()
   post: IPost
-  coment: IComent
+
+
+
 
   constructor(
     private router:Router,
@@ -23,9 +32,11 @@ export class PostComponent {
 
   getComment():void {
     this.router.navigate([this.post.id],{
-      relativeTo: this.activatedRout,
-      state: this.coment
-    })
+      relativeTo: this.activatedRout
 
+  })
   }
+
+
+
 }

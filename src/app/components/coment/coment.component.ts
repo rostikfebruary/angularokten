@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import {NgIf} from "@angular/common";
+import {NgFor, NgIf} from "@angular/common";
 import {IPost} from "../../interfaces/post.interface";
 import {IComent} from "../../interfaces/comment.interface";
 import {ActivatedRoute, Router} from "@angular/router";
-import {PostServiceService} from "../../services/post-service.service";
+
 import {CommentServiceService} from "../../services/comment-service.service";
+
 
 @Component({
   selector: 'app-coment',
   standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    NgFor
   ],
   templateUrl: './coment.component.html',
   styleUrl: './coment.component.css'
@@ -18,6 +20,8 @@ import {CommentServiceService} from "../../services/comment-service.service";
 export class ComentComponent {
   post: IPost
   coment:IComent
+
+
   constructor(
     private activateRoute: ActivatedRoute,
     private router:Router,
@@ -29,6 +33,8 @@ export class ComentComponent {
       if (!this.coment){
         this.comentService.getById(id).subscribe(value => this.coment = value)
       }
+
+
     })
   }
 }
